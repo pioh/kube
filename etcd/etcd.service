@@ -1,0 +1,16 @@
+[Unit]
+Description=etcd
+Documentation=https://github.com/coreos/etcd
+Conflicts=etcd2.service
+
+[Service]
+Type=notify
+Restart=always
+RestartSec=5s
+LimitNOFILE=40000
+TimeoutStartSec=0
+
+ExecStart=/opt/etcd --name etcd1   --data-dir /var/etcd --discovery-srv nirhub.ru   --listen-client-urls http://0.0.0.0:2379   --advertise-client-urls http://etcd1.nirhub.ru:2379   --listen-peer-urls http://0.0.0.0:2380   --initial-advertise-peer-urls http://etcd1.nirhub.ru:2380    --initial-cluster-token kube   --initial-cluster-state new   
+
+[Install]
+WantedBy=multi-user.target
